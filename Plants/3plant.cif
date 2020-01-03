@@ -109,9 +109,9 @@ requirement A_airslide.c_on  needs S_elevator_up.On and S_pusher.On;
 //Air slide is only allowed to disable after x seconds //Maybe use a timer!
 requirement A_airslide.c_off needs S_elevator_down.On;
 
-// MG: the current physical setup assures with all other requirements that this behavior is followed
-// as A_pusher.c_on is only allows when there is a product (optical sensor), but after pusher the
-// product out and fully retracting, there is no product any longer (optical sensor is of).
+//The current physical setup assures with all other requirements that this behavior is followed
+//as A_pusher.c_on is only allows when there is a product (optical sensor), but after pusher the
+//product out and fully retracting, there is no product any longer (optical sensor is of).
 //The following flow is required Lift goes up -> Pusher extends -> Pusher retracts -> Lift goes down
 // requirement PusherLift:
 //     location One:
@@ -125,7 +125,5 @@ requirement A_airslide.c_off needs S_elevator_down.On;
 //         edge A_elevator_down.c_on goto One;
 // end
 
-// MG: requirement is already mentioned in Line 101. Maybe you mean that the elevator
-// is only allowed to descend when it is safe??
-//Elevator is only allowed to ascend when it is safe
-requirement {A_elevator_up.c_on, A_elevator_down.c_off} needs S_reflective.Off;
+//Elevator is only allowed to descend when it is safe
+requirement {A_elevator_down.c_on, A_elevator_up.c_off} needs S_reflective.Off;

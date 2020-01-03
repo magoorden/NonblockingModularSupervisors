@@ -98,7 +98,7 @@ requirement A_tester.c_off needs S_test_ok.On;
 //         edge A_turntable.c_on goto One;
 // end
 
-// MG: alternative for requirement automaton Tester
+//Alternative for requirement automaton Tester
 plant ObserverTester:
 	monitor;
 	location Ready:
@@ -108,7 +108,7 @@ plant ObserverTester:
 		edge A_turntable.c_on goto Ready;
 end
 
-// Tester can only start once
+//Tester can only start once
 requirement A_tester.c_on needs ObserverTester.Ready;
 
 //Clamp
@@ -134,10 +134,6 @@ requirement A_drill.c_on  needs S_drill_up.On;
 //The drill is only allowed to enable when a product is clamped
 requirement A_drill.c_on  needs S_clamp.On;
 
-// MG In real life, this is a dangerous requirement. Disableling the drill in
-// the down position, i.e., while the drill is in the product, could result
-// in the drill getting stuck. The drill should be on while removing it from
-// the product.
 //The drill is only allowed to disable at the bottom position
 requirement A_drill.c_off needs S_drill_down.On;
 
@@ -149,7 +145,6 @@ requirement {A_drillup.c_off, A_drilldown.c_on} needs S_drill_up.On;
 //The drill is only allowed to ascend  when it is fully descended
 requirement {A_drillup.c_on, A_drilldown.c_off} needs S_drill_down.On;
 
-// MG
 //Elevator flows cannot be enabled simultaneously
 requirement A_drilldown.c_on needs A_drillup.Off;
 requirement A_drillup.c_on   needs A_drilldown.Off;
@@ -178,7 +173,7 @@ requirement A_drillup.c_on   needs A_drilldown.Off;
 //         edge A_turntable.c_on  goto one;
 // end
 
-// MG: alternative for requirement automaton ClampDrill
+//Alternative for requirement automaton ClampDrill
 plant ObserverDrill:
 	monitor;
 	location Up:
@@ -188,18 +183,18 @@ plant ObserverDrill:
 		edge A_drilldown.c_off goto Up;
 end
 
-// MG actions when the drill goes down
+//Actions when the drill goes down
 requirement A_drill.c_on needs ObserverDrill.Down;
 requirement A_drillup.c_off needs ObserverDrill.Down;
 requirement A_drilldown.c_on needs ObserverDrill.Down;
 
-// MG actions when the drill goes up
+//Actions when the drill goes up
 requirement A_drillup.c_on needs ObserverDrill.Up;
 requirement A_drill.c_off needs ObserverDrill.Up;
 requirement A_clamp.c_off needs ObserverDrill.Up;
 requirement A_turntable.c_on needs ObserverDrill.Up;
 
-// MG the order of actions (some are already defined above)
+//The order of actions (some are already defined above)
 requirement A_drillup.c_off needs A_drill.On;
 
 //Eject
