@@ -1,0 +1,66 @@
+import "Definitions.cif";
+
+//BUFFERING
+
+//Plant:
+//Sensors
+S_atin             : TwoStateSensor(false);
+S_atseparator      : TwoStateSensor(false);
+S_atend            : TwoStateSensor(false);
+S_separator_opened : TwoStateSensor(false);
+S_separator_closed : TwoStateSensor(true);
+S_Binitialized     : TwoStateSensor(false);
+
+//Actuators
+A_separator      : TwoStateActuator(true);
+A_conveyerB      : TwoStateActuator(false);
+
+
+plant BTimer:
+    controllable c_on, c_reset; uncontrollable u_timeout;
+    location Off:
+        initial; marked;
+        edge c_on goto Running;
+    location Running:
+        edge u_timeout goto Timeout;
+        edge c_reset goto Off;
+    location Timeout:
+        marked;
+        edge c_reset goto Off;
+end
+
+//Dynamics
+//elevator dynamics, sensors are mutually exclusive
+plant BDynamics:
+    location: initial; marked;
+        edge S_separator_opened.u_on when S_separator_closed.Off;
+        edge S_separator_closed.u_on when S_separator_opened.Off;
+end
+
+//Requirements
+//Initialization
+//Actuators are only allowed to enable/disable when the station is initialized
+requirement {A_separator.c_on, A_separator.c_off, A_conveyerB.c_on, A_conveyerB.c_off} needs
+             S_Binitialized.On;
+
+//Timer measures if the conveyer is enabled long enough for a product to exit
+requirement BTimer.c_on    needs S_atend.On;
+requirement BTimer.c_reset needs S_atin.On or A_conveyerB.Off;
+
+//Separator
+//The separator is only allowed to open when it is fully closed
+requirement A_separator.c_on  needs S_separator_closed.On;
+
+//The separator is only allowed to close when it is fully open
+requirement A_separator.c_off needs S_separator_opened.On;
+
+//The separator is only allowed to receive a new product when the current product has left the separator
+requirement A_separator.c_on  needs S_atseparator.On;
+requirement A_separator.c_off needs S_atseparator.Off;
+
+//Conveyer belt
+//The conveyer is only allowed to start when there is a product
+requirement A_conveyerB.c_on needs S_atin.On;
+
+//The conveyer is allowed to stop when a product has exit the system (x seconds after hitting the at exit sensor):
+requirement A_conveyerB.c_off needs BTimer.Timeout;

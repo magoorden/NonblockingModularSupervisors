@@ -1,0 +1,76 @@
+import "Plants/1plant.cif";
+import "Plants/2plant.cif";
+import "Plants/3plant.cif";
+import "Plants/4plant.cif";
+import "Plants/5plant.cif";
+import "Plants/6plant.cif";
+
+//Distributing - Handling combination
+
+//The gripper is only allowed to descend when:
+//  - Is at station 1 while station 1 is filled, and the gripper is empty
+//  - Is at station 2 while station 2 is filled, and the gripper is empty
+//  - Is at station 3 while station 3 is filled, and the gripper is empty
+//  - Is at station 4 while station 4 is empty,  and the gripper is filled.
+requirement A_zdown.c_on needs
+    (S_xpos_at1.On    and S_product1.On  and S_gripper.Off) or
+    (S_xpos_at2.On    and S_product2.On  and S_gripper.Off) or
+    (S_xpos_at3.On    and S_product3.On  and S_gripper.Off) or
+    (S_xpos_atdrop.On and S_product4.Off and S_gripper.On);
+
+//Gripper is allowed to move to the dist when
+//  - currently at drop with no product, (to make room for transfer).
+//  - currently at 3 with no product, 3 empty, and 2 or 3 filled
+//  - currently at 2 with no product, 2 empty, and 1 filled
+requirement A_x2testing.c_off needs
+    (S_xpos_atdrop.On and S_gripper.Off)  or
+    (S_xpos_at3.On    and S_gripper.Off and (S_product1.On or S_product2.On) and S_product3.Off) or
+    (S_xpos_at2.On    and S_gripper.Off and S_product1.On and S_product2.Off);
+
+//Gripper is allowed to stop when moving to dist when
+//  - currently at 3 with 3 filled;
+//  - currently at 3 with 1 and 2 empty;
+//  - currently at 2 with 2 filled;
+//  - currently at 1; Moving beyond this point is dangerous!
+requirement A_x2testing.c_on needs
+    (S_xpos_at3.On and S_product3.On) or
+    (S_xpos_at3.On and S_product2.Off and S_product1.Off) or
+    (S_xpos_at2.On and S_product2.On) or
+    (S_xpos_at1.On);
+
+//Handling - Testing combination
+
+//Elevator is only allowed to ascend when it is safe
+requirement {A_elevator_up.c_on, A_elevator_down.c_off} needs S_transfer_athalfway.On;
+
+//Transfer is allowed to move towards droppos when
+//  - Currently at drop
+//  - Currently at middle, testing is safe, testing is empty
+requirement A_transfer2droppos.c_on needs
+    (S_transfer_atpickup.On) or
+    (S_transfer_athalfway.On and S_elevator_down.On and S_capacitive.Off);
+
+//Transfer is allowed to stop move towards droppos when
+//  - Currently at droppos
+//  - Currently at middle, testing is unsafe or non empty
+requirement A_transfer2droppos.c_off needs
+    (S_transfer_atdrop.On) or
+    (S_transfer_athalfway.On and (S_elevator_down.Off or S_capacitive.On));
+
+//Testing - Buffering combination
+
+//The air slide can only be enabled when the buffering station is not full
+requirement A_airslide.c_on needs S_atin.Off;
+
+//Buffer - Processing combination
+
+//The separator is only allowed to release a product when the processing station has a free space
+requirement A_separator.c_off needs S_atinput.Off;
+
+//The separator is only allowed to release a product when the processing station is in a valid position
+requirement A_separator.c_off needs S_turntable.On;
+
+//Processing - Sorting combination
+
+//Eject can enable when the sorting has sorted the last product
+requirement A_eject.c_off needs A_conveyer.Off;
