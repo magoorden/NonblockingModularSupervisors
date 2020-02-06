@@ -1,0 +1,446 @@
+import "Slagboom.cif", "Verkeerslicht.cif", "j32.cif", "Hulppostkast.cif", "Drukknop.cif", "Verlichting.cif", "Ventilatie.cif", "Rookdetectie.cif", "Vluchtdeur.cif", "Lichtsensor.cif", "Kanaal.cif";
+
+group def Verkeersbuis_west():
+
+slagboom_l : Slagboom();
+slagboom_r : Slagboom();
+
+verkeerslicht_l : Verkeerslicht();
+verkeerslicht_m : Verkeerslicht();
+verkeerslicht_r : Verkeerslicht();
+
+j32 : J32();
+
+matrixbord_verkeerslicht : Actuator(true,false);
+matrixbord_los : Actuator(true,false);
+
+SOS_1 : Sensor(true,true,false);
+SOS_2 : Sensor(true,true,false);
+SOS_3 : Sensor(true,true,false);
+SOS_4 : Sensor(true,true,false);
+SOS_5 : Sensor(true,true,false);
+SOS_6 : Sensor(true,true,false);
+SOS_7 : Sensor(true,true,false);
+SOS_8 : Sensor(true,true,false);
+SOS_9 : Sensor(true,true,false);
+SOS_10 : Sensor(true,true,false);
+SOS_11 : Sensor(true,true,false);
+SOS_12 : Sensor(true,true,false);
+SOS_13 : Sensor(true,true,false);
+SOS_14 : Sensor(true,true,false);
+SOS_15 : Sensor(true,true,false);
+SOS_16 : Sensor(true,true,false);
+SOS_17 : Sensor(true,true,false);
+SOS_18 : Sensor(true,true,false);
+SOS_19 : Sensor(true,true,false);
+SOS_20 : Sensor(true,true,false);
+SOS_21 : Sensor(true,true,false);
+SOS_22 : Sensor(true,true,false);
+SOS_23 : Sensor(true,true,false);
+SOS_24 : Sensor(true,true,false);
+SOS_25 : Sensor(true,true,false);
+SOS_26 : Sensor(true,true,false);
+SOS_27 : Sensor(true,true,false);
+SOS_28 : Sensor(true,true,false);
+SOS_29 : Sensor(true,true,false);
+SOS_30 : Sensor(true,true,false);
+SOS_31 : Sensor(true,true,false);
+SOS_32 : Sensor(true,true,false);
+SOS_33 : Sensor(true,true,false);
+
+hulppostkast_A_1 : Hulppostkast_A();
+hulppostkast_A_2 : Hulppostkast_A();
+hulppostkast_A_3 : Hulppostkast_A();
+hulppostkast_A_4 : Hulppostkast_A();
+hulppostkast_A_5 : Hulppostkast_A();
+hulppostkast_A_6 : Hulppostkast_A();
+hulppostkast_A_7 : Hulppostkast_A();
+hulppostkast_A_8 : Hulppostkast_A();
+hulppostkast_A_9 : Hulppostkast_A();
+hulppostkast_A_10 : Hulppostkast_A();
+hulppostkast_A_11 : Hulppostkast_A();
+hulppostkast_A_12 : Hulppostkast_A();
+hulppostkast_A_13 : Hulppostkast_A();
+hulppostkast_A_14 : Hulppostkast_A();
+hulppostkast_A_15 : Hulppostkast_A();
+hulppostkast_A_16 : Hulppostkast_A();
+
+hulppostkast_C_1 : Hulppostkast_C();
+hulppostkast_C_2 : Hulppostkast_C();
+hulppostkast_C_3 : Hulppostkast_C();
+hulppostkast_C_4 : Hulppostkast_C();
+hulppostkast_C_5 : Hulppostkast_C();
+hulppostkast_C_6 : Hulppostkast_C();
+hulppostkast_C_7 : Hulppostkast_C();
+hulppostkast_C_8 : Hulppostkast_C();
+hulppostkast_C_9 : Hulppostkast_C();
+hulppostkast_C_10 : Hulppostkast_C();
+hulppostkast_C_11 : Hulppostkast_C();
+hulppostkast_C_12 : Hulppostkast_C();
+hulppostkast_C_13 : Hulppostkast_C();
+hulppostkast_C_14 : Hulppostkast_C();
+hulppostkast_C_15 : Hulppostkast_C();
+hulppostkast_C_16 : Hulppostkast_C();
+hulppostkast_C_17 : Hulppostkast_C();
+
+rookdetectie_1 : Rookdetectie();
+rookdetectie_2 : Rookdetectie();
+
+ventilatie_1 : Ventilatie();
+ventilatie_2 : Ventilatie();
+ventilatie_3 : Ventilatie();
+ventilatie_4 : Ventilatie();
+ventilatie_5 : Ventilatie();
+ventilatie_6 : Ventilatie();
+ventilatie_7 : Ventilatie();
+ventilatie_8 : Ventilatie();
+ventilatie_9 : Ventilatie();
+ventilatie_10 : Ventilatie();
+ventilatie_11 : Ventilatie();
+ventilatie_12 : Ventilatie();
+ventilatie_13 : Ventilatie();
+ventilatie_14 : Ventilatie();
+ventilatie_15 : Ventilatie();
+
+plant ventilatie_richting:
+	controllable c_mee, c_tegen;
+	location mee:
+		initial; marked;
+		edge c_tegen goto tegen;
+	location tegen:
+		edge c_mee goto mee;
+end
+
+lichtsensor : Lichtsensor();
+verlichting_1 : Verlichting();
+verlichting_2 : Verlichting();
+verlichting_3 : Verlichting();
+verlichting_4 : Verlichting();
+
+kanaal : Kanaal();
+recorder : Actuator(true,false);
+
+vluchtdeur_1 : Vluchtdeur();
+vluchtdeur_2 : Vluchtdeur();
+vluchtdeur_3 : Vluchtdeur();
+vluchtdeur_4 : Vluchtdeur();
+vluchtdeur_5 : Vluchtdeur();
+vluchtdeur_6 : Vluchtdeur();
+vluchtdeur_7 : Vluchtdeur();
+
+luidspreker_1 : Actuator(true,false);
+luidspreker_2 : Actuator(true,false);
+luidspreker_3 : Actuator(true,false);
+luidspreker_4 : Actuator(true,false);
+luidspreker_5 : Actuator(true,false);
+luidspreker_6 : Actuator(true,false);
+luidspreker_7 : Actuator(true,false);
+luidspreker_8 : Actuator(true,false);
+luidspreker_9 : Actuator(true,false);
+luidspreker_10 : Actuator(true,false);
+luidspreker_11 : Actuator(true,false);
+luidspreker_12 : Actuator(true,false);
+luidspreker_13 : Actuator(true,false);
+luidspreker_14 : Actuator(true,false);
+luidspreker_15 : Actuator(true,false);
+luidspreker_16 : Actuator(true,false);
+luidspreker_17 : Actuator(true,false);
+luidspreker_18 : Actuator(true,false);
+luidspreker_19 : Actuator(true,false);
+luidspreker_20 : Actuator(true,false);
+luidspreker_21 : Actuator(true,false);
+luidspreker_22 : Actuator(true,false);
+luidspreker_23 : Actuator(true,false);
+
+wissel_timer_audio : Wissel_timer();
+
+plant stand:
+	controllable c_operationeel, c_calamiteit, c_herstel, c_ondersteunend;
+	location operationeel:
+		initial; marked;
+		edge c_calamiteit goto calamiteit;
+		edge c_herstel goto herstel;
+		edge c_ondersteunend goto ondersteunend;
+	location calamiteit:
+		edge c_herstel goto herstel;
+		edge c_operationeel goto operationeel;
+		edge c_ondersteunend goto ondersteunend;
+	location herstel:
+		edge c_operationeel goto operationeel;
+		edge c_calamiteit goto calamiteit;
+		edge c_ondersteunend goto ondersteunend;
+	location ondersteunend:
+		edge c_operationeel goto operationeel;
+		edge c_calamiteit goto calamiteit;
+		edge c_herstel goto herstel;
+end
+
+standby : Actuator(true,false);
+evacuatie : Actuator(true,false);
+
+knop_operationeel : Drukknop(stand.herstel, stand.operationeel);
+knop_evacuatie : Drukknop(stand.calamiteit and evacuatie.uit, evacuatie.aan);
+knop_herstel : Drukknop(stand.calamiteit, stand.herstel);
+
+requirement stand.c_operationeel needs stand.herstel;
+requirement stand.c_operationeel needs knop_operationeel.waarnemer.ingedrukt;
+requirement stand.c_calamiteit needs stand.operationeel;
+requirement stand.c_calamiteit needs SOS_1.aan or SOS_2.aan or SOS_3.aan or SOS_4.aan or SOS_5.aan or SOS_6.aan or SOS_7.aan or SOS_8.aan or SOS_9.aan or SOS_10.aan or SOS_11.aan or SOS_12.aan or SOS_13.aan or SOS_14.aan or SOS_15.aan or SOS_16.aan or SOS_17.aan or SOS_18.aan or SOS_19.aan or SOS_20.aan or SOS_21.aan or SOS_22.aan or SOS_23.aan or SOS_24.aan or SOS_25.aan or SOS_26.aan or SOS_27.aan or SOS_28.aan or SOS_29.aan or SOS_30.aan or SOS_31.aan or SOS_32.aan or SOS_33.aan;
+requirement stand.c_calamiteit needs (rookdetectie_1.stand > 3) or (rookdetectie_2.stand > 3);
+requirement stand.c_calamiteit needs hulppostkast_A_1.sensor_open.aan or hulppostkast_A_2.sensor_open.aan or hulppostkast_A_3.sensor_open.aan or hulppostkast_A_4.sensor_open.aan or hulppostkast_A_5.sensor_open.aan or hulppostkast_A_6.sensor_open.aan or hulppostkast_A_7.sensor_open.aan or hulppostkast_A_8.sensor_open.aan or hulppostkast_A_9.sensor_open.aan or hulppostkast_A_10.sensor_open.aan or hulppostkast_A_11.sensor_open.aan or hulppostkast_A_12.sensor_open.aan or hulppostkast_A_13.sensor_open.aan or hulppostkast_A_14.sensor_open.aan or hulppostkast_A_15.sensor_open.aan or hulppostkast_A_16.sensor_open.aan or hulppostkast_C_1.sensor_open.aan or hulppostkast_C_2.sensor_open.aan or hulppostkast_C_3.sensor_open.aan or hulppostkast_C_4.sensor_open.aan or hulppostkast_C_5.sensor_open.aan or hulppostkast_C_6.sensor_open.aan or hulppostkast_C_7.sensor_open.aan or hulppostkast_C_8.sensor_open.aan or hulppostkast_C_9.sensor_open.aan or hulppostkast_C_10.sensor_open.aan or hulppostkast_C_11.sensor_open.aan or hulppostkast_C_12.sensor_open.aan or hulppostkast_C_13.sensor_open.aan or hulppostkast_C_14.sensor_open.aan or hulppostkast_C_15.sensor_open.aan or hulppostkast_C_16.sensor_open.aan or hulppostkast_C_17.sensor_open.aan;
+requirement stand.c_calamiteit needs hulppostkast_A_1.handblusser.aan or hulppostkast_A_1.brandslang.aan or hulppostkast_A_1.noodtelefoon.aan or hulppostkast_A_2.handblusser.aan or hulppostkast_A_2.brandslang.aan or hulppostkast_A_2.noodtelefoon.aan or hulppostkast_A_3.handblusser.aan or hulppostkast_A_3.brandslang.aan or hulppostkast_A_3.noodtelefoon.aan or hulppostkast_A_4.handblusser.aan or hulppostkast_A_4.brandslang.aan or hulppostkast_A_4.noodtelefoon.aan or hulppostkast_A_5.handblusser.aan or hulppostkast_A_5.brandslang.aan or hulppostkast_A_5.noodtelefoon.aan or hulppostkast_A_6.handblusser.aan or hulppostkast_A_6.brandslang.aan or hulppostkast_A_6.noodtelefoon.aan or hulppostkast_A_7.handblusser.aan or hulppostkast_A_7.brandslang.aan or hulppostkast_A_7.noodtelefoon.aan or hulppostkast_A_8.handblusser.aan or hulppostkast_A_8.brandslang.aan or hulppostkast_A_8.noodtelefoon.aan or hulppostkast_A_9.handblusser.aan or hulppostkast_A_9.brandslang.aan or hulppostkast_A_9.noodtelefoon.aan or hulppostkast_A_10.handblusser.aan or hulppostkast_A_10.brandslang.aan or hulppostkast_A_10.noodtelefoon.aan or hulppostkast_A_11.handblusser.aan or hulppostkast_A_11.brandslang.aan or hulppostkast_A_11.noodtelefoon.aan or hulppostkast_A_12.handblusser.aan or hulppostkast_A_12.brandslang.aan or hulppostkast_A_12.noodtelefoon.aan or hulppostkast_A_13.handblusser.aan or hulppostkast_A_13.brandslang.aan or hulppostkast_A_13.noodtelefoon.aan or hulppostkast_A_14.handblusser.aan or hulppostkast_A_14.brandslang.aan or hulppostkast_A_14.noodtelefoon.aan or hulppostkast_A_15.handblusser.aan or hulppostkast_A_15.brandslang.aan or hulppostkast_A_15.noodtelefoon.aan or hulppostkast_A_16.handblusser.aan or hulppostkast_A_16.brandslang.aan or hulppostkast_A_16.noodtelefoon.aan or hulppostkast_C_1.handblusser.aan or hulppostkast_C_1.noodtelefoon.aan or hulppostkast_C_2.handblusser.aan or hulppostkast_C_2.noodtelefoon.aan or hulppostkast_C_3.handblusser.aan or hulppostkast_C_3.noodtelefoon.aan or hulppostkast_C_4.handblusser.aan or hulppostkast_C_4.noodtelefoon.aan or hulppostkast_C_5.handblusser.aan or hulppostkast_C_5.noodtelefoon.aan or hulppostkast_C_6.handblusser.aan or hulppostkast_C_6.noodtelefoon.aan or hulppostkast_C_7.handblusser.aan or hulppostkast_C_7.noodtelefoon.aan or hulppostkast_C_8.handblusser.aan or hulppostkast_C_8.noodtelefoon.aan or hulppostkast_C_9.handblusser.aan or hulppostkast_C_9.noodtelefoon.aan or hulppostkast_C_10.handblusser.aan or hulppostkast_C_10.noodtelefoon.aan or hulppostkast_C_11.handblusser.aan or hulppostkast_C_11.noodtelefoon.aan or hulppostkast_C_12.handblusser.aan or hulppostkast_C_12.noodtelefoon.aan or hulppostkast_C_13.handblusser.aan or hulppostkast_C_13.noodtelefoon.aan or hulppostkast_C_14.handblusser.aan or hulppostkast_C_14.noodtelefoon.aan or hulppostkast_C_15.handblusser.aan or hulppostkast_C_15.noodtelefoon.aan or hulppostkast_C_16.handblusser.aan or hulppostkast_C_16.noodtelefoon.aan or hulppostkast_C_17.handblusser.aan or hulppostkast_C_17.noodtelefoon.aan;
+requirement stand.c_herstel needs stand.calamiteit or stand.ondersteunend;
+requirement stand.c_ondersteunend needs not stand.calamiteit;
+requirement standby.c_aan needs stand.operationeel;
+requirement standby.c_aan needs (rookdetectie_1.stand > 3) or (rookdetectie_2.stand > 3) or hulppostkast_A_1.handblusser.aan or hulppostkast_A_1.brandslang.aan or hulppostkast_A_2.handblusser.aan or hulppostkast_A_2.brandslang.aan or hulppostkast_A_3.handblusser.aan or hulppostkast_A_3.brandslang.aan or hulppostkast_A_4.handblusser.aan or hulppostkast_A_4.brandslang.aan or hulppostkast_A_5.handblusser.aan or hulppostkast_A_5.brandslang.aan or hulppostkast_A_6.handblusser.aan or hulppostkast_A_6.brandslang.aan or hulppostkast_A_7.handblusser.aan or hulppostkast_A_7.brandslang.aan or hulppostkast_A_8.handblusser.aan or hulppostkast_A_8.brandslang.aan or hulppostkast_A_9.handblusser.aan or hulppostkast_A_9.brandslang.aan or hulppostkast_A_10.handblusser.aan or hulppostkast_A_10.brandslang.aan or hulppostkast_A_11.handblusser.aan or hulppostkast_A_11.brandslang.aan or hulppostkast_A_12.handblusser.aan or hulppostkast_A_12.brandslang.aan or hulppostkast_A_13.handblusser.aan or hulppostkast_A_13.brandslang.aan or hulppostkast_A_14.handblusser.aan or hulppostkast_A_14.brandslang.aan or hulppostkast_A_15.handblusser.aan or hulppostkast_A_15.brandslang.aan or hulppostkast_A_16.handblusser.aan or hulppostkast_A_16.brandslang.aan or hulppostkast_C_1.handblusser.aan or hulppostkast_C_2.handblusser.aan or	hulppostkast_C_3.handblusser.aan or	hulppostkast_C_4.handblusser.aan or hulppostkast_C_5.handblusser.aan or hulppostkast_C_6.handblusser.aan or	hulppostkast_C_7.handblusser.aan or	hulppostkast_C_8.handblusser.aan or hulppostkast_C_9.handblusser.aan or	hulppostkast_C_10.handblusser.aan or hulppostkast_C_11.handblusser.aan or hulppostkast_C_12.handblusser.aan or hulppostkast_C_13.handblusser.aan or hulppostkast_C_14.handblusser.aan or hulppostkast_C_15.handblusser.aan or hulppostkast_C_16.handblusser.aan or hulppostkast_C_17.handblusser.aan;
+requirement standby.c_uit needs not stand.operationeel;
+requirement evacuatie.c_aan needs knop_evacuatie.waarnemer.ingedrukt;
+requirement evacuatie.c_uit needs not stand.calamiteit;
+
+group def slagboom_eisen(controllable event c_neer_aan, c_neer_uit_nood, c_op_aan):
+	requirement c_neer_aan needs verkeerslicht_l.vrijgavesignaal.aan;
+	requirement c_neer_aan needs verkeerslicht_m.vrijgavesignaal.aan;
+	requirement c_neer_aan needs verkeerslicht_r.vrijgavesignaal.aan;
+	requirement c_neer_aan needs not stand.operationeel;
+	requirement c_neer_uit_nood needs slagboom_l.obstakel_detectie.aan or verkeerslicht_l.vrijgavesignaal.uit or verkeerslicht_m.vrijgavesignaal.uit or verkeerslicht_r.vrijgavesignaal.uit;
+	requirement c_op_aan needs stand.operationeel;
+end
+slagboom_l_eisen : slagboom_eisen(slagboom_l.actuator_neer.c_aan, slagboom_l.actuator_neer.c_uit_nood, slagboom_l.actuator_op.c_aan);
+slagboom_r_eisen : slagboom_eisen(slagboom_r.actuator_neer.c_aan, slagboom_r.actuator_neer.c_uit_nood, slagboom_r.actuator_op.c_aan);
+
+group def verkeerslicht_eisen(controllable event c_knipper, c_uit, c_geel; location rood, uit):
+	requirement rood and slagboom_l.dicht disables c_knipper;
+	requirement rood and slagboom_r.dicht disables c_knipper;
+	requirement j32.stand.uit disables c_knipper;
+	requirement uit and not j32.timer_vrijgavesignaal.afgelopen disables c_knipper;
+	requirement c_uit needs stand.operationeel;
+	requirement c_knipper needs (rood and stand.operationeel) or (uit and not stand.operationeel);
+	requirement c_geel needs not stand.operationeel;
+end
+verkeerslicht_l_eisen : verkeerslicht_eisen(verkeerslicht_l.stand.c_knipper, verkeerslicht_l.stand.c_uit, verkeerslicht_l.stand.c_geel, verkeerslicht_l.stand.rood, verkeerslicht_l.stand.uit);
+verkeerslicht_m_eisen : verkeerslicht_eisen(verkeerslicht_m.stand.c_knipper, verkeerslicht_m.stand.c_uit, verkeerslicht_m.stand.c_geel, verkeerslicht_m.stand.rood, verkeerslicht_m.stand.uit);
+verkeerslicht_r_eisen : verkeerslicht_eisen(verkeerslicht_r.stand.c_knipper, verkeerslicht_r.stand.c_uit, verkeerslicht_r.stand.c_geel, verkeerslicht_r.stand.rood, verkeerslicht_r.stand.uit);
+
+requirement j32.stand.c_aan needs stand.calamiteit or stand.ondersteunend;
+requirement j32.stand.c_uit needs verkeerslicht_l.stand.uit;
+requirement j32.stand.c_uit needs verkeerslicht_m.stand.uit;
+requirement j32.stand.c_uit needs verkeerslicht_r.stand.uit;
+requirement j32.stand.c_uit needs stand.operationeel;
+
+requirement matrixbord_verkeerslicht.c_aan needs not stand.operationeel;
+requirement matrixbord_verkeerslicht.c_aan needs not verkeerslicht_l.stand.rood;
+requirement matrixbord_verkeerslicht.c_aan needs not verkeerslicht_m.stand.rood;
+requirement matrixbord_verkeerslicht.c_aan needs not verkeerslicht_r.stand.rood;
+requirement matrixbord_verkeerslicht.c_uit needs stand.operationeel or verkeerslicht_l.stand.rood or verkeerslicht_m.stand.rood or verkeerslicht_r.stand.rood;
+
+requirement matrixbord_los.c_aan needs not stand.operationeel;
+requirement matrixbord_los.c_uit needs stand.operationeel;
+
+group def ventilatie_ingang_eisen(controllable event c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8):
+	requirement c_0 needs stand.operationeel or stand.ondersteunend;
+	requirement c_0 needs ((rookdetectie_1.stand = 0) and (rookdetectie_2.stand = 0)) or stand.ondersteunend;
+	requirement c_1 needs stand.operationeel;
+	requirement c_1 needs ((rookdetectie_1.stand <= 1) and (rookdetectie_2.stand = 1)) or ((rookdetectie_1.stand = 1) and (rookdetectie_2.stand <= 1));
+	requirement c_2 needs stand.operationeel;
+	requirement c_2 needs ((rookdetectie_1.stand <= 2) and (rookdetectie_2.stand = 2)) or ((rookdetectie_1.stand = 2) and (rookdetectie_2.stand <= 2));
+	requirement c_3 needs stand.operationeel;
+	requirement c_3 needs ((rookdetectie_1.stand <= 3) and (rookdetectie_2.stand = 3)) or ((rookdetectie_1.stand = 3) and (rookdetectie_2.stand <= 3));
+	requirement c_4 needs (stand.operationeel and ((rookdetectie_1.stand <= 4) and (rookdetectie_2.stand = 4)) or ((rookdetectie_1.stand = 4) and (rookdetectie_2.stand <= 4))) or (stand.herstel and (rookdetectie_1.stand < 5) and (rookdetectie_2.stand < 5));
+	requirement c_5 needs stand.operationeel or stand.herstel;
+	requirement c_5 needs ((rookdetectie_1.stand <= 5) and (rookdetectie_2.stand = 5)) or ((rookdetectie_1.stand = 5) and (rookdetectie_2.stand <= 5));
+	requirement c_6 needs stand.operationeel or stand.herstel;
+	requirement c_6 needs ((rookdetectie_1.stand <= 6) and (rookdetectie_2.stand = 6)) or ((rookdetectie_1.stand = 6) and (rookdetectie_2.stand <= 6));
+	requirement c_7 needs stand.operationeel or stand.herstel;
+	requirement c_7 needs ((rookdetectie_1.stand <= 7) and (rookdetectie_2.stand = 7)) or ((rookdetectie_1.stand = 7) and (rookdetectie_2.stand <= 7));
+	requirement c_8 needs ((stand.operationeel or stand.herstel) and ((rookdetectie_1.stand <= 8) and (rookdetectie_2.stand = 8)) or ((rookdetectie_1.stand = 8) and (rookdetectie_2.stand <= 8))) or stand.calamiteit;
+end
+ventilatie_1_eisen : ventilatie_ingang_eisen(ventilatie_1.c_0, ventilatie_1.c_1, ventilatie_1.c_2, ventilatie_1.c_3, ventilatie_1.c_4, ventilatie_1.c_5, ventilatie_1.c_6, ventilatie_1.c_7, ventilatie_1.c_8);
+ventilatie_2_eisen : ventilatie_ingang_eisen(ventilatie_2.c_0, ventilatie_2.c_1, ventilatie_2.c_2, ventilatie_2.c_3, ventilatie_2.c_4, ventilatie_2.c_5, ventilatie_2.c_6, ventilatie_2.c_7, ventilatie_2.c_8);
+ventilatie_3_eisen : ventilatie_ingang_eisen(ventilatie_3.c_0, ventilatie_3.c_1, ventilatie_3.c_2, ventilatie_3.c_3, ventilatie_3.c_4, ventilatie_3.c_5, ventilatie_3.c_6, ventilatie_3.c_7, ventilatie_3.c_8);
+ventilatie_4_eisen : ventilatie_ingang_eisen(ventilatie_4.c_0, ventilatie_4.c_1, ventilatie_4.c_2, ventilatie_4.c_3, ventilatie_4.c_4, ventilatie_4.c_5, ventilatie_4.c_6, ventilatie_4.c_7, ventilatie_4.c_8);
+ventilatie_5_eisen : ventilatie_ingang_eisen(ventilatie_5.c_0, ventilatie_5.c_1, ventilatie_5.c_2, ventilatie_5.c_3, ventilatie_5.c_4, ventilatie_5.c_5, ventilatie_5.c_6, ventilatie_5.c_7, ventilatie_5.c_8);
+ventilatie_6_eisen : ventilatie_ingang_eisen(ventilatie_6.c_0, ventilatie_6.c_1, ventilatie_6.c_2, ventilatie_6.c_3, ventilatie_6.c_4, ventilatie_6.c_5, ventilatie_6.c_6, ventilatie_6.c_7, ventilatie_6.c_8);
+ventilatie_7_eisen : ventilatie_ingang_eisen(ventilatie_7.c_0, ventilatie_7.c_1, ventilatie_7.c_2, ventilatie_7.c_3, ventilatie_7.c_4, ventilatie_7.c_5, ventilatie_7.c_6, ventilatie_7.c_7, ventilatie_7.c_8);
+
+group def ventilatie_eisen(controllable event c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8):
+	requirement c_0 needs stand.operationeel;
+	requirement c_0 needs ((rookdetectie_1.stand = 0) and (rookdetectie_2.stand = 0));
+	requirement c_1 needs stand.operationeel;
+	requirement c_1 needs ((rookdetectie_1.stand <= 1) and (rookdetectie_2.stand = 1)) or ((rookdetectie_1.stand = 1) and (rookdetectie_2.stand <= 1));
+	requirement c_2 needs stand.operationeel;
+	requirement c_2 needs ((rookdetectie_1.stand <= 2) and (rookdetectie_2.stand = 2)) or ((rookdetectie_1.stand = 2) and (rookdetectie_2.stand <= 2));
+	requirement c_3 needs stand.operationeel;
+	requirement c_3 needs ((rookdetectie_1.stand <= 3) and (rookdetectie_2.stand = 3)) or ((rookdetectie_1.stand = 3) and (rookdetectie_2.stand <= 3));
+	requirement c_4 needs (stand.operationeel and ((rookdetectie_1.stand <= 4) and (rookdetectie_2.stand = 4)) or ((rookdetectie_1.stand = 4) and (rookdetectie_2.stand <= 4))) or (stand.herstel and (rookdetectie_1.stand < 5) and (rookdetectie_2.stand < 5));
+	requirement c_5 needs stand.operationeel or stand.herstel;
+	requirement c_5 needs ((rookdetectie_1.stand <= 5) and (rookdetectie_2.stand = 5)) or ((rookdetectie_1.stand = 5) and (rookdetectie_2.stand <= 5));
+	requirement c_6 needs ((stand.operationeel or stand.herstel) and (((rookdetectie_1.stand <= 6) and (rookdetectie_2.stand = 6)) or ((rookdetectie_1.stand = 6) and (rookdetectie_2.stand <= 6)))) or (stand.ondersteunend and (rookdetectie_1.stand < 7) and (rookdetectie_2.stand < 7));
+	requirement c_7 needs stand.operationeel or stand.herstel or stand.ondersteunend;
+	requirement c_7 needs ((rookdetectie_1.stand <= 7) and (rookdetectie_2.stand = 7)) or ((rookdetectie_1.stand = 7) and (rookdetectie_2.stand <= 7));
+	requirement c_8 needs ((rookdetectie_1.stand <= 8) and (rookdetectie_2.stand = 8)) or ((rookdetectie_1.stand = 8) and (rookdetectie_2.stand <= 8)) or stand.calamiteit;
+end
+ventilatie_8_eisen : ventilatie_eisen(ventilatie_8.c_0, ventilatie_8.c_1, ventilatie_8.c_2, ventilatie_8.c_3, ventilatie_8.c_4, ventilatie_8.c_5, ventilatie_8.c_6, ventilatie_8.c_7, ventilatie_8.c_8);
+ventilatie_9_eisen : ventilatie_eisen(ventilatie_9.c_0, ventilatie_9.c_1, ventilatie_9.c_2, ventilatie_9.c_3, ventilatie_9.c_4, ventilatie_9.c_5, ventilatie_9.c_6, ventilatie_9.c_7, ventilatie_9.c_8);
+ventilatie_10_eisen : ventilatie_eisen(ventilatie_10.c_0, ventilatie_10.c_1, ventilatie_10.c_2, ventilatie_10.c_3, ventilatie_10.c_4, ventilatie_10.c_5, ventilatie_10.c_6, ventilatie_10.c_7, ventilatie_10.c_8);
+ventilatie_11_eisen : ventilatie_eisen(ventilatie_11.c_0, ventilatie_11.c_1, ventilatie_11.c_2, ventilatie_11.c_3, ventilatie_11.c_4, ventilatie_11.c_5, ventilatie_11.c_6, ventilatie_11.c_7, ventilatie_11.c_8);
+ventilatie_12_eisen : ventilatie_eisen(ventilatie_12.c_0, ventilatie_12.c_1, ventilatie_12.c_2, ventilatie_12.c_3, ventilatie_12.c_4, ventilatie_12.c_5, ventilatie_12.c_6, ventilatie_12.c_7, ventilatie_12.c_8);
+ventilatie_13_eisen : ventilatie_eisen(ventilatie_13.c_0, ventilatie_13.c_1, ventilatie_13.c_2, ventilatie_13.c_3, ventilatie_13.c_4, ventilatie_13.c_5, ventilatie_13.c_6, ventilatie_13.c_7, ventilatie_13.c_8);
+ventilatie_14_eisen : ventilatie_eisen(ventilatie_14.c_0, ventilatie_14.c_1, ventilatie_14.c_2, ventilatie_14.c_3, ventilatie_14.c_4, ventilatie_14.c_5, ventilatie_14.c_6, ventilatie_14.c_7, ventilatie_14.c_8);
+ventilatie_15_eisen : ventilatie_eisen(ventilatie_15.c_0, ventilatie_15.c_1, ventilatie_15.c_2, ventilatie_15.c_3, ventilatie_15.c_4, ventilatie_15.c_5, ventilatie_15.c_6, ventilatie_15.c_7, ventilatie_15.c_8);
+
+requirement ventilatie_richting.c_tegen needs stand.ondersteunend;
+requirement ventilatie_richting.c_mee needs not stand.ondersteunend;
+
+group def verlichting_eisen(controllable event c_0, c_1, c_2, c_3, c_4, c_5, c_6, c_7, c_8):
+	requirement c_0 needs stand.operationeel;
+	requirement c_0 needs (lichtsensor.stand = 0);
+	requirement c_1 needs stand.operationeel;
+	requirement c_1 needs (lichtsensor.stand = 1);
+	requirement c_2 needs stand.operationeel;
+	requirement c_2 needs (lichtsensor.stand = 2);
+	requirement c_3 needs stand.operationeel;
+	requirement c_3 needs (lichtsensor.stand = 3);
+	requirement c_4 needs (stand.operationeel and (lichtsensor.stand = 4)) or (stand.herstel and (lichtsensor.stand < 5));
+	requirement c_5 needs stand.operationeel or stand.herstel;
+	requirement c_5 needs (lichtsensor.stand = 5);
+	requirement c_6 needs ((stand.operationeel or stand.herstel) and (lichtsensor.stand = 6)) or (stand.ondersteunend and (lichtsensor.stand < 7));
+	requirement c_7 needs stand.operationeel or stand.herstel or stand.ondersteunend;
+	requirement c_7 needs (lichtsensor.stand = 7);
+	requirement c_8 needs ((stand.operationeel or stand.herstel or stand.ondersteunend) and (lichtsensor.stand = 8)) or stand.calamiteit;
+end
+verlichting_1_eisen : verlichting_eisen(verlichting_1.stand.c_0, verlichting_1.stand.c_1, verlichting_1.stand.c_2, verlichting_1.stand.c_3, verlichting_1.stand.c_4, verlichting_1.stand.c_5, verlichting_1.stand.c_6, verlichting_1.stand.c_7, verlichting_1.stand.c_8);
+verlichting_2_eisen : verlichting_eisen(verlichting_2.stand.c_0, verlichting_2.stand.c_1, verlichting_2.stand.c_2, verlichting_2.stand.c_3, verlichting_2.stand.c_4, verlichting_2.stand.c_5, verlichting_2.stand.c_6, verlichting_2.stand.c_7, verlichting_2.stand.c_8);
+verlichting_3_eisen : verlichting_eisen(verlichting_3.stand.c_0, verlichting_3.stand.c_1, verlichting_3.stand.c_2, verlichting_3.stand.c_3, verlichting_3.stand.c_4, verlichting_3.stand.c_5, verlichting_3.stand.c_6, verlichting_3.stand.c_7, verlichting_3.stand.c_8);
+verlichting_4_eisen : verlichting_eisen(verlichting_4.stand.c_0, verlichting_4.stand.c_1, verlichting_4.stand.c_2, verlichting_4.stand.c_3, verlichting_4.stand.c_4, verlichting_4.stand.c_5, verlichting_4.stand.c_6, verlichting_4.stand.c_7, verlichting_4.stand.c_8);
+
+group def vluchtdeur_eisen(controllable event c_contour_verlichting_aan, c_contour_verlichting_uit, c_geluidsbaken_aan, c_geluidsbaken_uit):
+	requirement c_contour_verlichting_aan needs evacuatie.aan;
+	requirement c_contour_verlichting_uit needs evacuatie.uit;
+	requirement c_geluidsbaken_aan needs wissel_timer_audio.aan_2;
+	requirement c_geluidsbaken_aan needs luidspreker_1.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_2.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_3.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_4.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_5.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_6.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_7.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_8.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_9.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_10.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_11.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_12.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_13.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_14.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_15.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_16.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_17.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_18.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_19.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_20.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_21.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_22.uit;
+	requirement c_geluidsbaken_aan needs luidspreker_23.uit;
+	requirement c_geluidsbaken_uit needs not wissel_timer_audio.aan_2;
+end
+vluchtdeur_1_eisen : vluchtdeur_eisen(vluchtdeur_1.contour_verlichting.c_aan, vluchtdeur_1.contour_verlichting.c_uit, vluchtdeur_1.geluidsbaken.c_aan, vluchtdeur_1.geluidsbaken.c_uit);
+vluchtdeur_2_eisen : vluchtdeur_eisen(vluchtdeur_2.contour_verlichting.c_aan, vluchtdeur_2.contour_verlichting.c_uit, vluchtdeur_2.geluidsbaken.c_aan, vluchtdeur_2.geluidsbaken.c_uit);
+vluchtdeur_3_eisen : vluchtdeur_eisen(vluchtdeur_3.contour_verlichting.c_aan, vluchtdeur_3.contour_verlichting.c_uit, vluchtdeur_3.geluidsbaken.c_aan, vluchtdeur_3.geluidsbaken.c_uit);
+vluchtdeur_4_eisen : vluchtdeur_eisen(vluchtdeur_4.contour_verlichting.c_aan, vluchtdeur_4.contour_verlichting.c_uit, vluchtdeur_4.geluidsbaken.c_aan, vluchtdeur_4.geluidsbaken.c_uit);
+vluchtdeur_5_eisen : vluchtdeur_eisen(vluchtdeur_5.contour_verlichting.c_aan, vluchtdeur_5.contour_verlichting.c_uit, vluchtdeur_5.geluidsbaken.c_aan, vluchtdeur_5.geluidsbaken.c_uit);
+vluchtdeur_6_eisen : vluchtdeur_eisen(vluchtdeur_6.contour_verlichting.c_aan, vluchtdeur_6.contour_verlichting.c_uit, vluchtdeur_6.geluidsbaken.c_aan, vluchtdeur_6.geluidsbaken.c_uit);
+vluchtdeur_7_eisen : vluchtdeur_eisen(vluchtdeur_7.contour_verlichting.c_aan, vluchtdeur_7.contour_verlichting.c_uit, vluchtdeur_7.geluidsbaken.c_aan, vluchtdeur_7.geluidsbaken.c_uit);
+
+alg bool conditie_camera_1 = not verkeerslicht_l.stand.rood or not verkeerslicht_m.stand.rood or not verkeerslicht_r.stand.rood;
+alg bool conditie_camera_2 = slagboom_l.actuator_neer.aan or slagboom_r.actuator_neer.aan;
+alg bool conditie_camera_3 = SOS_1.aan or SOS_2.aan or SOS_3.aan or SOS_4.aan;
+alg bool conditie_camera_4 = hulppostkast_A_1.sensor_open.aan or hulppostkast_C_1.sensor_open.aan or hulppostkast_C_2.sensor_open.aan or SOS_5.aan or SOS_6.aan or SOS_7.aan or SOS_8.aan;
+alg bool conditie_camera_5 = hulppostkast_A_2.sensor_open.aan or hulppostkast_C_3.sensor_open.aan or rookdetectie_1.stand > 3;
+alg bool conditie_camera_6 = vluchtdeur_1.sensor_open.aan or hulppostkast_A_3.sensor_open.aan or hulppostkast_A_4.sensor_open.aan or hulppostkast_C_4.sensor_open.aan or SOS_9.aan or SOS_10.aan or SOS_11.aan or SOS_12.aan;
+alg bool conditie_camera_7 = vluchtdeur_2.sensor_open.aan or hulppostkast_A_5.sensor_open.aan or hulppostkast_C_5.sensor_open.aan;
+alg bool conditie_camera_8 = hulppostkast_A_6.sensor_open.aan or hulppostkast_A_7.sensor_open.aan or hulppostkast_C_6.sensor_open.aan or SOS_13.aan or SOS_14.aan or SOS_15.aan or SOS_16.aan;
+alg bool conditie_camera_9 = vluchtdeur_3.sensor_open.aan or hulppostkast_A_8.sensor_open.aan or hulppostkast_A_9.sensor_open.aan or hulppostkast_C_7.sensor_open.aan or hulppostkast_C_8.sensor_open.aan;
+alg bool conditie_camera_10 = vluchtdeur_4.sensor_open.aan or hulppostkast_A_10.sensor_open.aan or hulppostkast_C_9.sensor_open.aan or SOS_17.aan or SOS_18.aan or SOS_19.aan or SOS_20.aan;
+alg bool conditie_camera_11 = hulppostkast_A_11.sensor_open.aan or hulppostkast_C_10.sensor_open.aan;
+alg bool conditie_camera_12 = vluchtdeur_5.sensor_open.aan or hulppostkast_A_12.sensor_open.aan or hulppostkast_C_11.sensor_open.aan;
+alg bool conditie_camera_13 = hulppostkast_A_13.sensor_open.aan or hulppostkast_A_14.sensor_open.aan or hulppostkast_C_12.sensor_open.aan or SOS_21.aan or SOS_22.aan or SOS_23.aan or SOS_24.aan or rookdetectie_2.stand > 3;
+alg bool conditie_camera_14 = vluchtdeur_6.sensor_open.aan or hulppostkast_A_15.sensor_open.aan or hulppostkast_C_13.sensor_open.aan;
+alg bool conditie_camera_15 = vluchtdeur_7.sensor_open.aan or hulppostkast_A_16.sensor_open.aan or hulppostkast_C_14.sensor_open.aan or SOS_25.aan or SOS_26.aan or SOS_27.aan or SOS_28.aan or SOS_29.aan;
+alg bool conditie_camera_16 = hulppostkast_C_15.sensor_open.aan or hulppostkast_C_16.sensor_open.aan or hulppostkast_C_17.sensor_open.aan or SOS_30.aan or SOS_31.aan or SOS_32.aan or SOS_33.aan;
+alg bool conditie_camera_17 = false;
+
+requirement kanaal.c_1_aan needs 	  conditie_camera_1;
+requirement kanaal.c_1_uit needs  not conditie_camera_1;
+requirement kanaal.c_2_aan needs 	  conditie_camera_2;
+requirement kanaal.c_2_uit needs  not conditie_camera_2;
+requirement kanaal.c_3_aan needs 	  conditie_camera_3;
+requirement kanaal.c_3_uit needs  not conditie_camera_3;
+requirement kanaal.c_4_aan needs 	  conditie_camera_4;
+requirement kanaal.c_4_uit needs  not conditie_camera_4;
+requirement kanaal.c_5_aan needs 	  conditie_camera_5;
+requirement kanaal.c_5_uit needs  not conditie_camera_5;
+requirement kanaal.c_6_aan needs 	  conditie_camera_6;
+requirement kanaal.c_6_uit needs  not conditie_camera_6;
+requirement kanaal.c_7_aan needs 	  conditie_camera_7;
+requirement kanaal.c_7_uit needs  not conditie_camera_7;
+requirement kanaal.c_8_aan needs 	  conditie_camera_8;
+requirement kanaal.c_8_uit needs  not conditie_camera_8;
+requirement kanaal.c_9_aan needs 	  conditie_camera_9;
+requirement kanaal.c_9_uit needs  not conditie_camera_9;
+requirement kanaal.c_10_aan needs 	  conditie_camera_10;
+requirement kanaal.c_10_uit needs not conditie_camera_10;
+requirement kanaal.c_11_aan needs 	  conditie_camera_11;
+requirement kanaal.c_11_uit needs not conditie_camera_11;
+requirement kanaal.c_12_aan needs 	  conditie_camera_12;
+requirement kanaal.c_12_uit needs not conditie_camera_12;
+requirement kanaal.c_13_aan needs 	  conditie_camera_13;
+requirement kanaal.c_13_uit needs not conditie_camera_13;
+requirement kanaal.c_14_aan needs 	  conditie_camera_14;
+requirement kanaal.c_14_uit needs not conditie_camera_14;
+requirement kanaal.c_15_aan needs 	  conditie_camera_15;
+requirement kanaal.c_15_uit needs not conditie_camera_15;
+requirement kanaal.c_16_aan needs 	  conditie_camera_16;
+requirement kanaal.c_16_uit needs not conditie_camera_16;
+requirement kanaal.c_17_aan needs 	  conditie_camera_17;
+requirement kanaal.c_17_uit needs not conditie_camera_17;
+
+requirement recorder.c_aan needs stand.calamiteit or stand.ondersteunend;
+requirement recorder.c_uit needs stand.operationeel or stand.herstel;
+
+group def luidspreker_eisen(controllable event c_aan, c_uit):
+	requirement c_aan needs wissel_timer_audio.aan_1;
+	requirement c_aan needs vluchtdeur_1.geluidsbaken.uit;
+	requirement c_aan needs vluchtdeur_2.geluidsbaken.uit;
+	requirement c_aan needs vluchtdeur_3.geluidsbaken.uit;
+	requirement c_aan needs vluchtdeur_4.geluidsbaken.uit;
+	requirement c_aan needs vluchtdeur_5.geluidsbaken.uit;
+	requirement c_aan needs vluchtdeur_6.geluidsbaken.uit;
+	requirement c_aan needs vluchtdeur_7.geluidsbaken.uit;
+	requirement c_uit needs not wissel_timer_audio.aan_1;
+end
+luidspreker_1_eisen : luidspreker_eisen(luidspreker_1.c_aan, luidspreker_1.c_uit);
+luidspreker_2_eisen : luidspreker_eisen(luidspreker_2.c_aan, luidspreker_2.c_uit);
+luidspreker_3_eisen : luidspreker_eisen(luidspreker_3.c_aan, luidspreker_3.c_uit);
+luidspreker_4_eisen : luidspreker_eisen(luidspreker_4.c_aan, luidspreker_4.c_uit);
+luidspreker_5_eisen : luidspreker_eisen(luidspreker_5.c_aan, luidspreker_5.c_uit);
+luidspreker_6_eisen : luidspreker_eisen(luidspreker_6.c_aan, luidspreker_6.c_uit);
+luidspreker_7_eisen : luidspreker_eisen(luidspreker_7.c_aan, luidspreker_7.c_uit);
+luidspreker_8_eisen : luidspreker_eisen(luidspreker_8.c_aan, luidspreker_8.c_uit);
+luidspreker_9_eisen : luidspreker_eisen(luidspreker_9.c_aan, luidspreker_9.c_uit);
+luidspreker_10_eisen : luidspreker_eisen(luidspreker_10.c_aan, luidspreker_10.c_uit);
+luidspreker_11_eisen : luidspreker_eisen(luidspreker_11.c_aan, luidspreker_11.c_uit);
+luidspreker_12_eisen : luidspreker_eisen(luidspreker_12.c_aan, luidspreker_12.c_uit);
+luidspreker_13_eisen : luidspreker_eisen(luidspreker_13.c_aan, luidspreker_13.c_uit);
+luidspreker_14_eisen : luidspreker_eisen(luidspreker_14.c_aan, luidspreker_14.c_uit);
+luidspreker_15_eisen : luidspreker_eisen(luidspreker_15.c_aan, luidspreker_15.c_uit);
+luidspreker_16_eisen : luidspreker_eisen(luidspreker_16.c_aan, luidspreker_16.c_uit);
+luidspreker_17_eisen : luidspreker_eisen(luidspreker_17.c_aan, luidspreker_17.c_uit);
+luidspreker_18_eisen : luidspreker_eisen(luidspreker_18.c_aan, luidspreker_18.c_uit);
+luidspreker_19_eisen : luidspreker_eisen(luidspreker_19.c_aan, luidspreker_19.c_uit);
+luidspreker_20_eisen : luidspreker_eisen(luidspreker_20.c_aan, luidspreker_20.c_uit);
+luidspreker_21_eisen : luidspreker_eisen(luidspreker_21.c_aan, luidspreker_21.c_uit);
+luidspreker_22_eisen : luidspreker_eisen(luidspreker_22.c_aan, luidspreker_22.c_uit);
+luidspreker_23_eisen : luidspreker_eisen(luidspreker_23.c_aan, luidspreker_23.c_uit);
+
+requirement wissel_timer_audio.c_aan needs evacuatie.aan;
+requirement wissel_timer_audio.c_uit needs evacuatie.uit;
+end

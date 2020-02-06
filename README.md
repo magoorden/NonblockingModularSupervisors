@@ -1,6 +1,6 @@
 # NonblockingModularSupervisors
 
-CIF models for the case study on model properties for nonblocking modular 
+CIF models for the case studies on model properties for nonblocking modular 
 supervisors.
 
 Compatible with CIF version r9682, downloaded from: http://cif.se.wtb.tue.nl/

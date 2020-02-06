@@ -1,0 +1,9 @@
+import "Actuator.cif", "Timer.cif";
+
+group def J32():
+stand : Actuator(true,false);
+timer_vrijgavesignaal : Timer();
+
+requirement timer_vrijgavesignaal.c_aan needs stand.aan;
+requirement timer_vrijgavesignaal.c_reset needs stand.uit;
+end

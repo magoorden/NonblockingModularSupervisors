@@ -1,0 +1,15 @@
+plant def Lichtsensor():
+	disc int[0..8] stand = 0;
+    uncontrollable u_0, u_1, u_2, u_3, u_4, u_5, u_6, u_7, u_8;
+    location:
+        initial; marked;
+        edge u_0 when not (stand = 0) do stand:=0;
+        edge u_1 when not (stand = 1) do stand:=1;
+        edge u_2 when not (stand = 2) do stand:=2;
+        edge u_3 when not (stand = 3) do stand:=3;
+        edge u_4 when not (stand = 4) do stand:=4;
+        edge u_5 when not (stand = 5) do stand:=5;
+        edge u_6 when not (stand = 6) do stand:=6;
+        edge u_7 when not (stand = 7) do stand:=7;
+        edge u_8 when not (stand = 8) do stand:=8;
+end

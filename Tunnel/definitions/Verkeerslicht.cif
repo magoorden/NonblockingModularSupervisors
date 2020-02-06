@@ -1,0 +1,34 @@
+import "Sensor.cif", "Timer.cif";
+
+group def Verkeerslicht():
+
+plant stand:
+	controllable c_uit, c_geel, c_knipper, c_rood;
+	location uit:
+		initial; marked;
+		edge c_knipper goto knipper;
+	location geel:
+		edge c_knipper goto knipper;
+		edge c_rood goto rood;
+	location knipper:
+		edge c_uit goto uit;
+		edge c_geel goto geel;
+	location rood:
+		edge c_knipper goto knipper;
+end
+
+vrijgavesignaal : Sensor(true,true,false);
+timer_vrijgavesignaal : Timer();
+
+plant relatie:
+	location:
+		initial; marked;
+		edge vrijgavesignaal.u_aan when stand.rood and timer_vrijgavesignaal.afgelopen;
+		edge vrijgavesignaal.u_uit when not stand.rood;
+end
+
+requirement timer_vrijgavesignaal.c_aan needs stand.rood;
+requirement timer_vrijgavesignaal.c_reset needs not stand.rood;
+end
+
+

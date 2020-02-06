@@ -1,0 +1,22 @@
+plant def Actuator(alg bool UitGemarkeerd; alg bool AanGemarkeerd):
+    controllable c_aan, c_uit;
+    location uit:
+        initial;
+        marked UitGemarkeerd;
+        edge c_aan goto aan;
+    location aan:
+    	marked AanGemarkeerd;
+        edge c_uit goto uit;
+end
+
+plant def Actuator_noodstop(alg bool UitGemarkeerd; alg bool AanGemarkeerd):
+    controllable c_aan, c_uit, c_uit_nood;
+    location uit:
+        initial;
+        marked UitGemarkeerd;
+        edge c_aan goto aan;
+    location aan:
+    	marked AanGemarkeerd;
+        edge c_uit goto uit;
+        edge c_uit_nood goto uit;
+end

@@ -1,0 +1,58 @@
+plant def Kanaal():
+    controllable c_1_uit, c_2_uit, c_3_uit, c_4_uit, c_5_uit, c_6_uit, c_7_uit, c_8_uit, c_9_uit, c_10_uit, c_11_uit, c_12_uit, c_13_uit, c_14_uit, c_15_uit, c_16_uit, c_17_uit;
+    controllable c_1_aan, c_2_aan, c_3_aan, c_4_aan, c_5_aan, c_6_aan, c_7_aan, c_8_aan, c_9_aan, c_10_aan, c_11_aan, c_12_aan, c_13_aan, c_14_aan, c_15_aan, c_16_aan, c_17_aan;
+    location uit:
+        initial;
+        marked;
+        edge c_1_aan goto camera_1;
+        edge c_2_aan goto camera_2;
+        edge c_3_aan goto camera_3;
+        edge c_4_aan goto camera_4;
+        edge c_5_aan goto camera_5;
+        edge c_6_aan goto camera_6;
+        edge c_7_aan goto camera_7;
+        edge c_8_aan goto camera_8;
+        edge c_9_aan goto camera_9;
+        edge c_10_aan goto camera_10;
+        edge c_11_aan goto camera_11;
+        edge c_12_aan goto camera_12;
+        edge c_13_aan goto camera_13;
+        edge c_14_aan goto camera_14;
+        edge c_15_aan goto camera_15;
+        edge c_16_aan goto camera_16;
+        edge c_17_aan goto camera_17;
+    location camera_1:
+    	edge c_1_uit goto uit;
+    location camera_2:
+    	edge c_2_uit goto uit;
+    location camera_3:
+    	edge c_3_uit goto uit;
+    location camera_4:
+    	edge c_4_uit goto uit;
+    location camera_5:
+    	edge c_5_uit goto uit;
+    location camera_6:
+    	edge c_6_uit goto uit;
+	location camera_7:
+    	edge c_7_uit goto uit;
+    location camera_8:
+    	edge c_8_uit goto uit;
+    location camera_9:
+    	edge c_9_uit goto uit;
+    location camera_10:
+    	edge c_10_uit goto uit;
+    location camera_11:
+    	edge c_11_uit goto uit;
+    location camera_12:
+    	edge c_12_uit goto uit;
+	location camera_13:
+    	edge c_13_uit goto uit;
+    location camera_14:
+    	edge c_14_uit goto uit;
+    location camera_15:
+    	edge c_15_uit goto uit;
+    location camera_16:
+    	edge c_16_uit goto uit;
+    location camera_17:
+    	edge c_17_uit goto uit;
+end

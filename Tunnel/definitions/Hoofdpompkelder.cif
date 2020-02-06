@@ -1,0 +1,15 @@
+import "Actuator.cif", "Sensor.cif";
+
+group def Hoofdpompkelder():
+
+sensor_laagwater : Sensor(true,true,false);
+sensor_startwater : Sensor(true,true,false);
+sensor_maxstartwater : Sensor(true,true,false);
+sensor_laaghoogwater : Sensor(true,true,false);
+sensor_hooghoogwater : Sensor(true,true,false);
+pomp_1 : Actuator(true,false);
+pomp_2 : Actuator(true,false);
+pomp_3 : Actuator(true,false);
+pomp_4 : Actuator(true,false);
+
+end

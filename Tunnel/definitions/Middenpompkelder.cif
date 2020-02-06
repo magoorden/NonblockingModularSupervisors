@@ -1,0 +1,22 @@
+import "Actuator.cif", "Sensor.cif";
+
+group def Middenpompkelder():
+
+sensor_laagwater : Sensor(true,true,false);
+sensor_startwater : Sensor(true,true,false);
+sensor_maxstartwater : Sensor(true,true,false);
+sensor_laaghoogwater : Sensor(true,true,false);
+sensor_hooghoogwater : Sensor(true,true,false);
+pomp_1 : Actuator(true,false);
+pomp_2 : Actuator(true,false);
+
+plant pomp_richting:
+	controllable c_hoofdpompkelder_1, c_hoofdpompkelder_2;
+	location hoofdpompkelder_1:
+		initial; marked;
+		edge c_hoofdpompkelder_2 goto hoofdpompkelder_2;
+	location hoofdpompkelder_2:
+		edge c_hoofdpompkelder_1 goto hoofdpompkelder_1;
+end
+
+end

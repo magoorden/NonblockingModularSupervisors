@@ -1,0 +1,23 @@
+group def Drukknop(alg bool conditie_indrukken; alg bool conditie_klaar):
+
+plant knop:
+    uncontrollable u_indrukken;
+    location:
+    	initial;
+        marked;
+        edge u_indrukken;
+end
+
+plant waarnemer:
+	controllable c_klaar;
+	monitor knop.u_indrukken;
+	location los:
+		initial;
+		marked;
+		edge knop.u_indrukken when conditie_indrukken goto ingedrukt;
+	location ingedrukt:
+		marked;
+		edge c_klaar when conditie_klaar goto los;
+end
+
+end

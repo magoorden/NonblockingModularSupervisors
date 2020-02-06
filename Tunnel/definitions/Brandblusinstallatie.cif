@@ -1,0 +1,12 @@
+import "Actuator.cif", "Sensor.cif";
+
+group def Brandblusinstallatie():
+
+sensor_laag : Sensor(false,false,true);
+sensor_hoog : Sensor(false,false,true);
+pomp : Actuator(true,false);
+
+requirement pomp.c_aan needs sensor_hoog.uit;
+requirement pomp.c_uit needs sensor_hoog.aan;
+
+end

@@ -1,0 +1,75 @@
+import "definitions/Verkeersbuis_west.cif", "definitions/Verkeersbuis_oost.cif", "definitions/Middentunnelkanaal.cif", "definitions/Hoofdpompkelder.cif", "definitions/Middenpompkelder.cif", "definitions/Brandblusinstallatie.cif";
+
+buis_oost : Verkeersbuis_oost();
+buis_west : Verkeersbuis_west();
+
+middentunnelkanaal : Middentunnelkanaal();
+
+brandblusinstallatie : Brandblusinstallatie();
+
+middenpompkelder : Middenpompkelder();
+hoofdpompkelder_1 : Hoofdpompkelder();
+hoofdpompkelder_2 : Hoofdpompkelder();
+
+requirement buis_oost.stand.c_ondersteunend needs buis_west.stand.calamiteit;
+requirement buis_west.stand.c_ondersteunend needs buis_oost.stand.calamiteit;
+requirement buis_oost.stand.calamiteit disables {buis_west.standby.c_aan, buis_west.stand.c_calamiteit};
+requirement buis_west.stand.calamiteit disables {buis_oost.standby.c_aan, buis_oost.stand.c_calamiteit};
+requirement buis_oost.evacuatie.c_aan needs buis_west.stand.ondersteunend;
+requirement buis_west.evacuatie.c_aan needs buis_oost.stand.ondersteunend;
+requirement buis_oost.stand.c_herstel needs (buis_oost.stand.calamiteit and buis_oost.knop_herstel.waarnemer.ingedrukt) or (buis_oost.stand.ondersteunend and buis_west.stand.herstel);
+requirement buis_west.stand.c_herstel needs (buis_west.stand.calamiteit and buis_west.knop_herstel.waarnemer.ingedrukt) or (buis_west.stand.ondersteunend and buis_oost.stand.herstel);
+
+group def overdruk_eisen(controllable event c_links, c_rechts, c_uit):
+	requirement c_links needs buis_oost.standby.aan or (not buis_oost.stand.operationeel and not buis_oost.stand.ondersteunend);
+	requirement c_rechts needs buis_west.standby.aan or (not buis_west.stand.operationeel and not buis_west.stand.ondersteunend);
+	requirement c_uit needs buis_oost.stand.operationeel;
+	requirement c_uit needs buis_west.stand.operationeel;
+	requirement c_uit needs buis_oost.standby.uit;
+	requirement c_uit needs buis_west.standby.uit;
+end
+overdruk_1_eisen : overdruk_eisen(middentunnelkanaal.overdruk_1.c_links, middentunnelkanaal.overdruk_1.c_rechts, middentunnelkanaal.overdruk_1.c_uit);
+overdruk_2_eisen : overdruk_eisen(middentunnelkanaal.overdruk_2.c_links, middentunnelkanaal.overdruk_2.c_rechts, middentunnelkanaal.overdruk_2.c_uit);
+
+requirement middentunnelkanaal.verlichting.c_aan needs buis_oost.standby.aan or buis_oost.stand.calamiteit or buis_west.standby.aan or buis_west.stand.calamiteit;
+requirement middentunnelkanaal.verlichting.c_uit needs buis_oost.standby.uit;
+requirement middentunnelkanaal.verlichting.c_uit needs buis_west.standby.uit;
+requirement middentunnelkanaal.verlichting.c_uit needs buis_oost.stand.operationeel or buis_oost.stand.herstel;
+requirement middentunnelkanaal.verlichting.c_uit needs buis_west.stand.operationeel or buis_west.stand.herstel;
+
+requirement middentunnelkanaal.dynamische_vluchtroute_indicatie.c_oplopend needs buis_oost.evacuatie.aan;
+requirement middentunnelkanaal.dynamische_vluchtroute_indicatie.c_aflopend needs buis_west.evacuatie.aan;
+requirement middentunnelkanaal.dynamische_vluchtroute_indicatie.c_uit needs buis_oost.evacuatie.uit;
+requirement middentunnelkanaal.dynamische_vluchtroute_indicatie.c_uit needs buis_west.evacuatie.uit;
+
+requirement middentunnelkanaal.luidspreker.c_aan needs (buis_oost.evacuatie.aan and buis_oost.wissel_timer_audio.aan_2) or (buis_west.evacuatie.aan and buis_west.wissel_timer_audio.aan_2);
+requirement middentunnelkanaal.luidspreker.c_uit needs buis_oost.evacuatie.uit or not buis_oost.wissel_timer_audio.aan_2;
+requirement middentunnelkanaal.luidspreker.c_uit needs buis_west.evacuatie.uit or not buis_west.wissel_timer_audio.aan_2;
+
+requirement brandblusinstallatie.pomp.c_aan needs brandblusinstallatie.sensor_laag.uit or buis_west.hulppostkast_A_1.brandslang.aan or buis_west.hulppostkast_A_2.brandslang.aan or buis_west.hulppostkast_A_3.brandslang.aan or buis_west.hulppostkast_A_4.brandslang.aan or buis_west.hulppostkast_A_5.brandslang.aan or buis_west.hulppostkast_A_6.brandslang.aan or buis_west.hulppostkast_A_7.brandslang.aan or buis_west.hulppostkast_A_8.brandslang.aan or buis_west.hulppostkast_A_9.brandslang.aan or buis_west.hulppostkast_A_10.brandslang.aan or buis_west.hulppostkast_A_11.brandslang.aan or buis_west.hulppostkast_A_12.brandslang.aan or buis_west.hulppostkast_A_13.brandslang.aan or buis_west.hulppostkast_A_14.brandslang.aan or buis_west.hulppostkast_A_15.brandslang.aan or buis_west.hulppostkast_A_16.brandslang.aan or buis_oost.hulppostkast_A_1.brandslang.aan or buis_oost.hulppostkast_A_2.brandslang.aan or buis_oost.hulppostkast_A_3.brandslang.aan or buis_oost.hulppostkast_A_4.brandslang.aan or buis_oost.hulppostkast_A_5.brandslang.aan or buis_oost.hulppostkast_A_6.brandslang.aan or buis_oost.hulppostkast_A_7.brandslang.aan or buis_oost.hulppostkast_A_8.brandslang.aan or buis_oost.hulppostkast_A_9.brandslang.aan or buis_oost.hulppostkast_A_10.brandslang.aan or buis_oost.hulppostkast_A_11.brandslang.aan or buis_oost.hulppostkast_A_12.brandslang.aan or buis_oost.hulppostkast_A_13.brandslang.aan or buis_oost.hulppostkast_A_14.brandslang.aan or buis_oost.hulppostkast_A_15.brandslang.aan or buis_oost.hulppostkast_A_16.brandslang.aan or buis_oost.stand.calamiteit or buis_west.stand.calamiteit;
+
+requirement middenpompkelder.pomp_1.c_aan needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and middenpompkelder.sensor_startwater.aan) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and middenpompkelder.sensor_hooghoogwater.aan);
+requirement middenpompkelder.pomp_2.c_aan needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and middenpompkelder.sensor_maxstartwater.aan) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and middenpompkelder.sensor_hooghoogwater.aan);
+requirement middenpompkelder.pomp_1.c_uit needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and middenpompkelder.sensor_laagwater.uit) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and middenpompkelder.sensor_laaghoogwater.uit);
+requirement middenpompkelder.pomp_2.c_uit needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and middenpompkelder.sensor_startwater.uit) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and middenpompkelder.sensor_laaghoogwater.uit);
+
+requirement middenpompkelder.pomp_richting.c_hoofdpompkelder_2 needs hoofdpompkelder_1.sensor_hooghoogwater.aan;
+requirement middenpompkelder.pomp_richting.c_hoofdpompkelder_1 needs hoofdpompkelder_1.sensor_laaghoogwater.uit;
+
+group def hoofdpompkelder_pompset_1_eisen(controllable event c_aan, c_uit; location startwater_aan, hooghoogwater_aan, laagwater_uit, laaghoogwater_uit):
+	requirement c_aan needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and startwater_aan) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and hooghoogwater_aan);
+	requirement c_uit needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and laagwater_uit) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and laaghoogwater_uit);
+end
+hoofdpompkelder_1_pomp_1_eisen : hoofdpompkelder_pompset_1_eisen(hoofdpompkelder_1.pomp_1.c_aan, hoofdpompkelder_1.pomp_1.c_uit, hoofdpompkelder_1.sensor_startwater.aan, hoofdpompkelder_1.sensor_hooghoogwater.aan, hoofdpompkelder_1.sensor_laagwater.uit, hoofdpompkelder_1.sensor_laaghoogwater.uit);
+hoofdpompkelder_1_pomp_2_eisen : hoofdpompkelder_pompset_1_eisen(hoofdpompkelder_1.pomp_2.c_aan, hoofdpompkelder_1.pomp_2.c_uit, hoofdpompkelder_1.sensor_startwater.aan, hoofdpompkelder_1.sensor_hooghoogwater.aan, hoofdpompkelder_1.sensor_laagwater.uit, hoofdpompkelder_1.sensor_laaghoogwater.uit);
+hoofdpompkelder_2_pomp_1_eisen : hoofdpompkelder_pompset_1_eisen(hoofdpompkelder_2.pomp_1.c_aan, hoofdpompkelder_2.pomp_1.c_uit, hoofdpompkelder_2.sensor_startwater.aan, hoofdpompkelder_2.sensor_hooghoogwater.aan, hoofdpompkelder_2.sensor_laagwater.uit, hoofdpompkelder_2.sensor_laaghoogwater.uit);
+hoofdpompkelder_2_pomp_2_eisen : hoofdpompkelder_pompset_1_eisen(hoofdpompkelder_2.pomp_2.c_aan, hoofdpompkelder_2.pomp_2.c_uit, hoofdpompkelder_2.sensor_startwater.aan, hoofdpompkelder_2.sensor_hooghoogwater.aan, hoofdpompkelder_2.sensor_laagwater.uit, hoofdpompkelder_2.sensor_laaghoogwater.uit);
+
+group def hoofdpompkelder_pompset_2_eisen(controllable event c_aan, c_uit; location maxstartwater_aan, hooghoogwater_aan, laagwater_uit, laaghoogwater_uit):
+	requirement c_aan needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and maxstartwater_aan) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and hooghoogwater_aan);
+	requirement c_uit needs (buis_oost.stand.operationeel and buis_west.stand.operationeel and laagwater_uit) or ((buis_oost.stand.calamiteit or buis_oost.stand.herstel or buis_oost.stand.calamiteit or buis_west.stand.herstel) and laaghoogwater_uit);
+end
+hoofdpompkelder_1_pomp_3_eisen : hoofdpompkelder_pompset_2_eisen(hoofdpompkelder_1.pomp_3.c_aan, hoofdpompkelder_1.pomp_3.c_uit, hoofdpompkelder_1.sensor_maxstartwater.aan, hoofdpompkelder_1.sensor_hooghoogwater.aan, hoofdpompkelder_1.sensor_laagwater.uit, hoofdpompkelder_1.sensor_laaghoogwater.uit);
+hoofdpompkelder_1_pomp_4_eisen : hoofdpompkelder_pompset_2_eisen(hoofdpompkelder_1.pomp_4.c_aan, hoofdpompkelder_1.pomp_4.c_uit, hoofdpompkelder_1.sensor_maxstartwater.aan, hoofdpompkelder_1.sensor_hooghoogwater.aan, hoofdpompkelder_1.sensor_laagwater.uit, hoofdpompkelder_1.sensor_laaghoogwater.uit);
+hoofdpompkelder_2_pomp_3_eisen : hoofdpompkelder_pompset_2_eisen(hoofdpompkelder_2.pomp_3.c_aan, hoofdpompkelder_2.pomp_3.c_uit, hoofdpompkelder_2.sensor_maxstartwater.aan, hoofdpompkelder_2.sensor_hooghoogwater.aan, hoofdpompkelder_2.sensor_laagwater.uit, hoofdpompkelder_2.sensor_laaghoogwater.uit);
+hoofdpompkelder_2_pomp_4_eisen : hoofdpompkelder_pompset_2_eisen(hoofdpompkelder_2.pomp_4.c_aan, hoofdpompkelder_2.pomp_4.c_uit, hoofdpompkelder_2.sensor_maxstartwater.aan, hoofdpompkelder_2.sensor_hooghoogwater.aan, hoofdpompkelder_2.sensor_laagwater.uit, hoofdpompkelder_2.sensor_laaghoogwater.uit);

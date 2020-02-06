@@ -1,0 +1,9 @@
+import "Actuator.cif", "Sensor.cif";
+
+group def Vluchtdeur():
+
+sensor_open : Sensor(true,true,false);
+geluidsbaken : Actuator(true,false);
+contour_verlichting : Actuator(true,false);
+
+end

@@ -1,0 +1,18 @@
+import "Sensor.cif";
+
+group def Hulppostkast_A():
+
+sensor_open : Sensor(true,true,false);
+noodtelefoon : Sensor(true,true,false);
+handblusser : Sensor(true,true,false);
+brandslang : Sensor(true,true,false);
+
+end
+
+group def Hulppostkast_C():
+
+sensor_open : Sensor(true,true,false);
+noodtelefoon : Sensor(true,true,false);
+handblusser : Sensor(true,true,false);
+
+end

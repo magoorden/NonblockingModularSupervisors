@@ -1,0 +1,57 @@
+import "Actuator.cif";
+
+group def Middentunnelkanaal():
+
+plant overdruk_1:
+    controllable c_uit, c_links, c_rechts;
+    location uit:
+        initial; marked;
+        edge c_links goto links;
+        edge c_rechts goto rechts;
+    location links:
+        edge c_uit goto uit;
+        edge c_rechts goto rechts;
+    location rechts:
+        edge c_uit goto uit;
+        edge c_links goto links;
+end
+
+plant overdruk_2:
+    controllable c_uit, c_links, c_rechts;
+    location uit:
+        initial; marked;
+        edge c_links goto links;
+        edge c_rechts goto rechts;
+    location links:
+        edge c_uit goto uit;
+        edge c_rechts goto rechts;
+    location rechts:
+        edge c_uit goto uit;
+        edge c_links goto links;
+end
+
+verlichting : Actuator(true, false);
+
+plant dynamische_vluchtroute_indicatie:
+    controllable c_uit, c_oplopend, c_aflopend;
+    location uit:
+        initial; marked;
+        edge c_oplopend goto oplopend;
+        edge c_aflopend goto aflopend;
+    location oplopend:
+        edge c_uit goto uit;
+        edge c_aflopend goto aflopend;
+    location aflopend:
+        edge c_uit goto uit;
+        edge c_oplopend goto oplopend;
+end
+
+luidspreker : Actuator(true,false);
+
+requirement overdruk_1.c_links needs overdruk_1.uit;
+requirement overdruk_2.c_links needs overdruk_2.uit;
+requirement overdruk_1.c_rechts needs overdruk_1.uit;
+requirement overdruk_2.c_rechts needs overdruk_2.uit;
+requirement dynamische_vluchtroute_indicatie.c_oplopend needs dynamische_vluchtroute_indicatie.uit;
+requirement dynamische_vluchtroute_indicatie.c_aflopend needs dynamische_vluchtroute_indicatie.uit;
+end

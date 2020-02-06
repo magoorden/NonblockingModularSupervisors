@@ -1,0 +1,30 @@
+import "Actuator.cif", "Sensor.cif";
+
+group def Slagboom():
+actuator_op : Actuator(true,false);
+actuator_neer : Actuator_noodstop(true,false);
+sensor_open : Sensor(false,false,true);
+sensor_dicht : Sensor(true,true,false);
+
+plant fysieke_relatie:
+	location:
+		initial; marked;
+		edge sensor_open.u_aan when actuator_op.aan and sensor_dicht.uit;
+		edge sensor_dicht.u_uit when actuator_op.aan;
+		edge sensor_open.u_uit when actuator_neer.aan;
+		edge sensor_dicht.u_aan when actuator_neer.aan and sensor_open.uit;
+end
+
+obstakel_detectie : Sensor(true,true,false);
+
+alg bool open = sensor_open.aan and actuator_op.uit and actuator_neer.uit;
+alg bool dicht = sensor_dicht.aan and actuator_op.uit and actuator_neer.uit;
+
+requirement actuator_op.c_aan needs actuator_neer.uit;
+requirement actuator_op.c_aan needs not open;
+requirement actuator_op.c_uit needs sensor_open.aan;
+requirement actuator_neer.c_aan needs actuator_op.uit;
+requirement actuator_neer.c_aan needs not dicht;
+requirement actuator_neer.c_uit needs sensor_dicht.aan;
+requirement actuator_neer.c_aan needs obstakel_detectie.uit;
+end
